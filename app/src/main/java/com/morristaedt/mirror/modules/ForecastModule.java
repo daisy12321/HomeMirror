@@ -25,6 +25,7 @@ public class ForecastModule {
 
     public interface ForecastListener {
         void onWeatherToday(String weatherToday);
+        void onWeatherForecast(String weatherForecast);
 
         void onShouldBike(boolean showToday, boolean shouldBike);
     }
@@ -46,7 +47,7 @@ public class ForecastModule {
                         .build();
 
                 ForecastRequest service = restAdapter.create(ForecastRequest.class);
-                String excludes = "minutely,daily,flags";
+                String excludes = "minutely,flags";
 
                 try {
                     return service.getHourlyForecast(apiKey, lat, lon, excludes, units, Locale.getDefault().getLanguage());
@@ -61,12 +62,14 @@ public class ForecastModule {
                 if (forecastResponse != null) {
                     if (forecastResponse.currently != null) {
                         listener.onWeatherToday(forecastResponse.currently.getDisplayTemperature() + " " + forecastResponse.currently.summary);
+                        listener.onWeatherForecast("        "+forecastResponse.hourly.summary);
                     }
 
-                    if (forecastResponse.hourly != null && forecastResponse.hourly.data != null && (ConfigurationSettings.isDemoMode() || WeekUtil.isWeekdayBeforeFive())) {
-                        listener.onShouldBike(true, shouldBikeToday(forecastResponse.hourly.data));
+                    if (forecastResponse.hourly != null && forecastResponse.hourly.data != null) {
+//                        listener.onWeatherToday(forecastResponse.hourly.summary);
+//                        listener.onShouldBike(true, shouldBikeToday(forecastResponse.hourly.data));
                     } else {
-                        listener.onShouldBike(false, true);
+//                        listener.onShouldBike(false, true);
                     }
                 }
             }

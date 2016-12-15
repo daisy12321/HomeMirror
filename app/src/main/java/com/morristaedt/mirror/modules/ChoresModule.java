@@ -15,8 +15,9 @@ public class ChoresModule {
             return false;
         }
 
-        int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek == Calendar.TUESDAY || dayOfWeek == Calendar.SATURDAY;
+//        int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+//        return dayOfWeek == Calendar.TUESDAY || dayOfWeek == Calendar.SATURDAY;
+    return false;
     }
 
     public static boolean makeGroceryListToday() {
@@ -25,14 +26,14 @@ public class ChoresModule {
             return false;
         }
 
-        Calendar now = Calendar.getInstance();
-        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-        if (dayOfWeek == Calendar.SUNDAY) {
-            return true;
-        }
-        if (dayOfWeek == Calendar.MONDAY && now.get(Calendar.HOUR_OF_DAY) < 15) {
-            return true;
-        }
+//        Calendar now = Calendar.getInstance();
+//        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+//        if (dayOfWeek == Calendar.SUNDAY) {
+//            return true;
+//        }
+//        if (dayOfWeek == Calendar.MONDAY && now.get(Calendar.HOUR_OF_DAY) < 15) {
+//            return true;
+//        }
         return false;
     }
 }

@@ -26,12 +26,25 @@
     <include layout="@layout/clock" />
 
     <TextView
-        android:id="@+id/weather_summary"
-        style="@style/MirrorText"
+    android:id="@+id/weather_summary"
+    style="@style/MirrorText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:includeFontPadding="false"
+    tools:text="Partly Cloudy" />
+
+    <TextView
+        android:id="@+id/weather_forecast"
+        style="@style/MirrorMarqueeText"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
         android:includeFontPadding="false"
-        tools:text="Partly Cloudy" />
+        tools:text="Tomorrow is cold" />
 
     <TextView
         android:id="@+id/calendar_title"
@@ -41,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/mirror_item_spacing"
         android:ellipsize="marquee"
+        android:scrollHorizontally="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:includeFontPadding="false"
@@ -74,6 +88,18 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/news_headline"
+            style="@style/MirrorMarqueeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="16"
+            android:visibility="invisible"
+            android:scrollbars = "vertical"
+            tools:text="A news headline"
+            tools:visiblity="visible"
+            android:textSize="36sp"/>
+
+        <TextView
             android:id="@+id/hello_text"
             style="@style/MirrorListText"
             android:layout_width="match_parent"
@@ -87,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/bike"
-            android:visibility="gone"
+            android:visibility="invisible"
             tools:text="Don't Bike Today"
             tools:visibility="visible" />
 
@@ -98,7 +124,7 @@
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/air_plant"
             android:text="@string/water_plants"
-            android:visibility="gone"
+            android:visibility="invisible"
             tools:visibility="visible" />
 
         <TextView
@@ -111,17 +137,11 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/news_headline"
-            style="@style/MirrorMarqueeText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-            android:visibility="gone"
-            tools:text="A news headline"
-            tools:visiblity="visible" />
+
+        <!--android:ellipsize="marquee"-->
+                <!--android:marqueeRepeatLimit="marquee_forever"-->
+                <!--android:singleLine="true"-->
+
 
         <TextView
             android:id="@+id/stock_text"

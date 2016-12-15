@@ -30,8 +30,8 @@ public class NewsModule {
                 try {
                     RSSFeed feed = rssReader.load(url);
                     String headline = feed.getItems().get(0).getTitle();
-                    for (int i = 1; i < 10; ++i) {
-                        headline += "                " + feed.getItems().get(i).getTitle();
+                    for (int i = 1; i < 25; ++i) {
+                        headline += "\n\n" +feed.getItems().get(i).getTitle();
                     }
                     return headline;
                 } catch (RSSReaderException e) {

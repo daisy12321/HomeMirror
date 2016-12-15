@@ -54,7 +54,7 @@ public class YahooFinanceModule {
             protected void onPostExecute(@Nullable YahooStockResponse stockResponse) {
                 if (stockResponse != null && stockResponse.getQuoteResponse() != null) {
                     YahooStockResponse.YahooQuoteResponse quoteResponse = stockResponse.getQuoteResponse();
-                    if (ConfigurationSettings.isDemoMode() || quoteResponse.getPercentageChange().abs().compareTo(BigDecimal.valueOf(0.03)) >= 0) {
+                    if (ConfigurationSettings.isDemoMode() || quoteResponse.getPercentageChange().abs().compareTo(BigDecimal.valueOf(0.005)) >= 0) {
                         listener.onNewStockPrice(quoteResponse);
                         return;
                     }

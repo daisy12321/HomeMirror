@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Scroller;
+import android.view.animation.LinearInterpolator;
 
 import com.morristaedt.mirror.configuration.ConfigurationSettings;
 import com.morristaedt.mirror.modules.BirthdayModule;
@@ -42,6 +44,7 @@ public class MirrorActivity extends ActionBarActivity {
     private TextView mBirthdayText;
     private TextView mDayText;
     private TextView mWeatherSummary;
+    private TextView mWeatherForecast;
     private TextView mHelloText;
     private TextView mBikeTodayText;
     private TextView mStockText;
@@ -50,6 +53,7 @@ public class MirrorActivity extends ActionBarActivity {
     private View mGroceryList;
     private ImageView mXKCDImage;
     private MoodModule mMoodModule;
+    private Scroller mTextScroller;
     private TextView mNewsHeadline;
     private TextView mCalendarTitleText;
     private TextView mCalendarDetailsText;
@@ -88,6 +92,17 @@ public class MirrorActivity extends ActionBarActivity {
             }
         }
 
+        public void onWeatherForecast(String weatherForecast) {
+            if (!TextUtils.isEmpty(weatherForecast)) {
+                mWeatherForecast.setVisibility(View.VISIBLE);
+                mWeatherForecast.setText(weatherForecast);
+                mWeatherForecast.setSingleLine(true);
+                mWeatherForecast.setSelected(true);
+
+            }
+        }
+
+
         @Override
         public void onShouldBike(boolean showToday, boolean shouldBike) {
             if (mConfigSettings.showBikingHint()) {
@@ -105,9 +120,13 @@ public class MirrorActivity extends ActionBarActivity {
             if (TextUtils.isEmpty(headline)) {
                 mNewsHeadline.setVisibility(View.GONE);
             } else {
+
                 mNewsHeadline.setVisibility(View.VISIBLE);
                 mNewsHeadline.setText(headline);
                 mNewsHeadline.setSelected(true);
+                mNewsHeadline.setMovementMethod(new android.text.method.ScrollingMovementMethod());
+
+
             }
         }
     };
@@ -181,6 +200,7 @@ public class MirrorActivity extends ActionBarActivity {
         mBirthdayText = (TextView) findViewById(R.id.birthday_text);
         mDayText = (TextView) findViewById(R.id.day_text);
         mWeatherSummary = (TextView) findViewById(R.id.weather_summary);
+        mWeatherForecast = (TextView) findViewById(R.id.weather_forecast);
         mHelloText = (TextView) findViewById(R.id.hello_text);
         mWaterPlants = findViewById(R.id.water_plants);
         mGroceryList = findViewById(R.id.grocery_list);
@@ -264,6 +284,19 @@ public class MirrorActivity extends ActionBarActivity {
 
         if (mConfigSettings.showNewsHeadline()) {
             NewsModule.getNewsHeadline(mNewsListener);
+
+            mTextScroller = new Scroller(this, new LinearInterpolator()); // Create new scroller
+            mNewsHeadline.setScroller(mTextScroller);
+
+            int startY = mNewsHeadline.getHeight();
+            int lineHeight = mNewsHeadline.getLineHeight();
+            int lineCount = mNewsHeadline.getLineCount();
+            int duration = 60000; // Milliseconds
+            int startX = 0;
+            int dx = 0;
+            int dy = startY + lineHeight * lineCount;
+            mTextScroller.startScroll(startX, -startY, dx, 2000, duration);
+
         } else {
             mNewsHeadline.setVisibility(View.GONE);
         }

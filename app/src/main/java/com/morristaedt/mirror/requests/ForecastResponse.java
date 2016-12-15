@@ -13,6 +13,7 @@ public class ForecastResponse {
 
     public ForecastCurrently currently;
     public ForecastHourly hourly;
+    public ForecastDaily daily;
 
     public class ForecastCurrently {
         public String summary;
@@ -22,11 +23,21 @@ public class ForecastResponse {
             return String.valueOf(Math.round(temperature)) + (char) 0x00B0;
         }
     }
+    public class ForecastDaily {
+        public String summary;
+        public float temperatureMin;
+        public float temperatureMax;
+
+        public String getDisplayTemperature() {
+            return String.valueOf(Math.round(temperatureMin)) + (char) 0x00B0 + "-"  + String.valueOf(Math.round(temperatureMax)) + (char) 0x00B0;
+        }
+    }
 
     public class ForecastHourly {
-        String summary;
+        public String summary;
         public ArrayList<Hour> data;
     }
+
 
     public class Hour {
         public long time; // in seconds
